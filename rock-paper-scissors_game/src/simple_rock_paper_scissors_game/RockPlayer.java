@@ -11,8 +11,8 @@ public class RockPlayer extends Player {
 	}
 
 	@Override
-	public int getState() {
-		return ROCK;
+	public Token getState() {
+		return Token.ROCK;
 	}
 
 	@Override

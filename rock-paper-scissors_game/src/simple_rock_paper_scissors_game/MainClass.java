@@ -23,85 +23,77 @@ public class MainClass {
 		return info;
 	}
 
-
 	public static Player getRockPlayer() {
 
 		System.out.println("Please, enter your first name: ");
-		String firstNameofFirstPlayer = getInfo();
+		String firstName = getInfo();
 		System.out.println("Please, enter your last name: ");
-		String lastNameofFirstPlayer = getInfo();
-		return new RockPlayer(firstNameofFirstPlayer, lastNameofFirstPlayer);
+		String lastName = getInfo();
+		return new RockPlayer(firstName, lastName);
 	}
 
 	public static Player getRandomPlayer() {
 
 		System.out.println("Please, enter your first name: ");
-		String firstNameofSecondPlayer = getInfo();
+		String firstName = getInfo();
 		System.out.println("Please, enter your last name: ");
-		String lastNameofSecondPlayer = getInfo();
-		return new RandomPlayer(firstNameofSecondPlayer, lastNameofSecondPlayer);
+		String lastName = getInfo();
+		return new RandomPlayer(firstName, lastName);
 	}
 
-	public static void findWinner(int pointOfFirstPlayer, int pointOfSecondPlayer, Player firstPlayer,
-			Player secondPlayer) {
-		if (pointOfFirstPlayer > pointOfSecondPlayer) {
-			System.out.println("The winner is the first player:  " + firstPlayer + "!");
-		} else if (pointOfFirstPlayer < pointOfSecondPlayer) {
-			System.out.println("The winner is the second player: " + secondPlayer + "!");
+	private static Player getHumanPlayer() {
+		System.out.println("Please, enter your first name: ");
+		String firstName = getInfo();
+		System.out.println("Please, enter your last name: ");
+		String lastName = getInfo();
+		return new HumanPlayer(firstName, lastName);
+	}
+
+
+	public static void findWinner(Result result) {
+		if (result.getFirstPlayerRoundWins() > result.getSecondPlayerRoundWins()) {
+			System.out.println("The winner is the first player: " + result.getFirstPlayer());
+		} else if (result.getFirstPlayerRoundWins() < result.getSecondPlayerRoundWins()) {
+			System.out.println("The winner is the second player: " + result.getSecondPlayer());
 		} else {
-			System.out.println("There is no winner!");
+			System.out.println("There is no winner");
 		}
 	}
 
 	public static void main(String[] args) {
+		System.out.println("The first game");
+		Game firstGame = setUpFirstGame();
+		Result firstGameResult = firstGame.playGame();
+		findWinner(firstGameResult);
+		System.out.println("............................................................\n\n");
+		System.out.println("The second game");
+		Game secondGame = setUpSecondGame();
+		Result secondGameResult = secondGame.playGame();
+		findWinner(secondGameResult);
 
-		int pointOfFirstPlayer = 0, pointOfSecondPlayer = 0;
-		int stateOfFirstPlayer = Player.ROCK, stateOfSecondPlayer;
+	}
 
-		System.out.println("First Player ");
+	
+	private static Game setUpFirstGame() {
+		System.out.println("First Player");
 		Player firstPlayer = getRockPlayer();
-
-		System.out.println(".........................................");
-		System.out.println("\nSecond Player ");
-
+		System.out.println("Second Player");
 		Player secondPlayer = getRandomPlayer();
+		System.out.println("............................................................");
+		int rounds = 100;
+		return new Game(firstPlayer, secondPlayer, rounds);
+	}
 
-		System.out.println(".........................................");
-		System.out.println("\t\t\tResults during rounds\n");
-		System.out.println("\t\tFirst Player " + "\t" + "Second Player \t Winner");
-		for (int i = 0; i < 4; i++) {
-			Player winner = null;
+	
+	private static Game setUpSecondGame() {
+		System.out.println("First Player");
+		Player firstPlayer = getRandomPlayer();
+		System.out.println("Second Player");
+		Player secondPlayer = getHumanPlayer();
+		System.out.println("............................................................");
+		int rounds = 5;
 
-			stateOfFirstPlayer = firstPlayer.getState();
-			stateOfSecondPlayer = secondPlayer.getState();
-			String state;
-			if (stateOfSecondPlayer == Player.ROCK) {
-				state = "ROCK";
-			} else if (stateOfSecondPlayer == Player.PAPER) {
-				state = "PAPER";
-			} else {
-				state = "SCISSORS";
-
-			}
-
-			if (stateOfSecondPlayer == Player.PAPER) {
-				pointOfSecondPlayer++;
-				winner = secondPlayer;
-			} else if (stateOfSecondPlayer == Player.SCISSORS) {
-				pointOfFirstPlayer++;
-				winner = firstPlayer;
-			}
-			if (winner == null) {
-				System.out.println("\t\tROCK" + "\t\t" + String.format("%8s", state) + "\t No winner");
-			} else {
-				System.out.println("\t\tROCK" + "\t\t" + String.format("%8s", state) + "\t " + winner.getFirstName()
-						+ " " + winner.getLastName());
-			}
-		}
-
-		System.out.println();
-		findWinner(pointOfFirstPlayer, pointOfSecondPlayer, firstPlayer, secondPlayer);
-
+		return new Game(firstPlayer, secondPlayer, rounds);
 	}
 
 }
