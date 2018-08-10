@@ -5,23 +5,40 @@ import java.util.Scanner;
 public class MainClass {
 	static Scanner input = new Scanner(System.in);
 
-	
+	public static String getInfo() {
+		String info = input.nextLine();
+		do {
+			int i;
+			for (i = 0; i < info.length(); i++) {
+				if (!Character.isLetter(info.charAt(i))) {
+					break;
+				}
+			}
+			if (i == info.length()) {
+				break;
+			}
+			System.out.println("Wrong input. Try again");
+			info = input.nextLine();
+		} while (true);
+		return info;
+	}
+
 
 	public static Player getRockPlayer() {
 
 		System.out.println("Please, enter your first name: ");
-		String firstNameofFirstPlayer = input.nextLine();
+		String firstNameofFirstPlayer = getInfo();
 		System.out.println("Please, enter your last name: ");
-		String lastNameofFirstPlayer = input.nextLine();
+		String lastNameofFirstPlayer = getInfo();
 		return new RockPlayer(firstNameofFirstPlayer, lastNameofFirstPlayer);
 	}
 
 	public static Player getRandomPlayer() {
 
 		System.out.println("Please, enter your first name: ");
-		String firstNameofSecondPlayer = input.nextLine();
+		String firstNameofSecondPlayer = getInfo();
 		System.out.println("Please, enter your last name: ");
-		String lastNameofSecondPlayer = input.nextLine();
+		String lastNameofSecondPlayer = getInfo();
 		return new RandomPlayer(firstNameofSecondPlayer, lastNameofSecondPlayer);
 	}
 
