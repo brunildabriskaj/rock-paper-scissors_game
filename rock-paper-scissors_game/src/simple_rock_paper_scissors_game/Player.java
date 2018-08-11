@@ -2,8 +2,7 @@ package simple_rock_paper_scissors_game;
 
 public abstract class Player {
 	private String firstName;
-	private String lastName;
-	private int state;
+	private String lastName; 
 
 	public Player() {
 		this("Undefined", "Undefined");
@@ -15,10 +14,6 @@ public abstract class Player {
 	}
 
 	public abstract Token getState();
-
-	public void setState(int state) {
-		this.state = state;
-	}
 
 	public String getFirstName() {
 		return firstName;

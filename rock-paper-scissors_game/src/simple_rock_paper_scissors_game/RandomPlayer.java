@@ -9,9 +9,9 @@ public class RandomPlayer extends Player {
 	public RandomPlayer(String firstName, String lastName) {
 		super(firstName, lastName);
 	}
+	
 	@Override
 	public Token getState() {
-
 		return  Token.values()[(int)(Math.random() * 3 )];
 	}
 

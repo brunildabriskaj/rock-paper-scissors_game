@@ -13,16 +13,14 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public Token getState() {
-		Scanner input = new Scanner(System.in);
+	public Token getState() { 
 		System.out.println("Determine the state you are going to play in this round(ROCK, PAPER or SCISSOR): ");
-		String state = input.nextLine();
+		String state = MainClass.input.nextLine();
 		while (!state.equalsIgnoreCase("ROCK") && !state.equalsIgnoreCase("PAPER")
 				&& !state.equalsIgnoreCase("SCISSOR")) {
 			System.out.println("Wrong input! Try again! Determine the state you are going to play in this round(ROCK, PAPER or SCISSOR):");
-			state = input.nextLine();
-		}
-
+			state = MainClass.input.nextLine();
+		} 
 		if (state.equalsIgnoreCase("ROCK")) {
 			return Token.ROCK;
 
